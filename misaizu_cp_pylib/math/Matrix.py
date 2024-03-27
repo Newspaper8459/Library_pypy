@@ -22,11 +22,34 @@ class Matrix:
     return Matrix(a, mod)
 
   @overload
-  def __init__(self, a: list[int], mod: bool) -> None: ...
+  def __init__(self, a: list[int], mod: bool) -> None:
+    """Creates a Matrix object based on a row vector
+
+    Args:
+        a (list[int]): Row vector
+        mod (bool): Whether to take the modulo
+    """
+    ...
   @overload
-  def __init__(self, a: list[int], n: int, m: int, mod: bool) -> None: ...
+  def __init__(self, a: list[int], n: int, m: int, mod: bool) -> None:
+    """Creates a Matrix object based on an array.
+
+    Args:
+        a (list[int]): The base array
+        n (int): Number of rows
+        m (int): Number of columns
+        mod (bool): Whether to take the modulo
+    """
+    ...
   @overload
-  def __init__(self, a: list[list[int]], mod: bool) -> None: ...
+  def __init__(self, a: list[list[int]], mod: bool) -> None:
+    """Creates a Matrix object from a 2-D array. The number of columns on each rows must be the same.
+
+    Args:
+        a (list[list[int]]): The base 2-D array
+        mod (bool): Whether to take the modulo
+    """
+    ...
 
   def __init__(self, a, n=-1, m=-1, mod=True):
     if not isinstance(a, list):
@@ -267,8 +290,15 @@ class Matrix:
       a = list(map(list, zip(*self.a)))
       return Matrix(a)
 
-  def det(self) -> int:
-    _force_det = False
+  def det(self, _force_det=False) -> int:
+    """Calculates the determinant of the Matrix.
+
+    Args:
+        _force_det (bool, optional): Forcibly calculates the determinant when self._mod is False. Defaults to False.
+
+    Returns:
+        int: The determinant of the Matrix
+    """
     assert self.n == self.m, f""
     assert _force_det or self._mod, f"Calculation of the determinant without taking mods may produce float elements. Set _force_det to False to calculate the determinant."
 
@@ -307,8 +337,19 @@ class Matrix:
 
     return res
 
-  def inv(self, inplace=False):
-    _force_inv = False
+  def inv(self, inplace=False, _force_inv=False) -> Matrix|None:
+    """Calculates the inverse matrix of the Matrix.
+
+    Args:
+        inplace (bool, optional): Fill in-place if set to True. Defaults to False.
+        _force_inv (bool, optional): Forcibly calculates the inverse matrix when self._mod is False. Defaults to False.
+
+    Raises:
+        AssertionError: The Matrix must be square.
+
+    Returns:
+        Matrix|None: Returns the inverse matrix if inplace is set to False.
+    """
     assert self.n == self.m, f""
     assert _force_inv or self._mod, f"Calculation of the inverse matrix without taking mods may produce float elements. Set _force_inv to False to calculate the inverse matrix."
 
