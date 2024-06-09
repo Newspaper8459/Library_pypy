@@ -1,3 +1,4 @@
+# verified with: https://judge.yosupo.jp/submission/213836
 from array import array
 
 
