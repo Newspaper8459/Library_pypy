@@ -21,8 +21,6 @@ class CSR:
     self.elist = elist
     self.start = start
 
-
-
 class SCCGraph:
   def __init__(self, n: int) -> None:
     """ACLのscc_graphです。面倒くさいので0-indexed実装です。add_edgeにぶち込む際は気を付けてください。
